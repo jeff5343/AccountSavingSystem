@@ -1,30 +1,36 @@
 package com.hong.GUI;
 
-import com.hong.User;
-import com.hong.UsersManager;
+import com.hong.UsersDatabase;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    private final UsersManager usersManager;
+    public final static String LOGINPANEL = "Login Card";
+    public final static String ACCOUNTPANEL = "Account Card";
+    private final UsersDatabase usersDatabase;
+    private JPanel cards;
 
     public MainFrame() {
-        usersManager = new UsersManager();
-        usersManager.loadData();
+        usersDatabase = new UsersDatabase();
+        usersDatabase.loadData();
 
         createComponents();
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Scuffed Account System");
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.pack();
         this.setVisible(true);
     }
 
     private void createComponents() {
-        //this.add(new LoginPanel(usersManager));
-        this.add(new AccountPanel(new User("jeff", "jdawd")));
+        cards = new JPanel(new CardLayout());
+        cards.add(new LoginPanel(usersDatabase, cards), LOGINPANEL);
+        cards.add(new AccountPanel(null), ACCOUNTPANEL);
+        this.add(cards);
     }
 
 }

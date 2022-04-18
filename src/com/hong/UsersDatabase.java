@@ -3,7 +3,7 @@ package com.hong;
 import java.io.*;
 import java.util.ArrayList;
 
-public class UsersManager implements Serializable {
+public class UsersDatabase implements Serializable {
 
     private static final long serialVersionUID = 8600091809369890560L;
     private ArrayList<User> users = new ArrayList<>();
@@ -42,13 +42,22 @@ public class UsersManager implements Serializable {
         try {
             FileInputStream fileInput = new FileInputStream("UsersInfo.ser");
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-            UsersManager manager = (UsersManager)objectInput.readObject();
+            UsersDatabase manager = (UsersDatabase)objectInput.readObject();
             users = manager.getUsers();
             objectInput.close();
             fileInput.close();
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public User getUserFromDatabase(User user) {
+        for(User u : users) {
+            if(u.equals(user)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     public void clearData() {
@@ -58,7 +67,7 @@ public class UsersManager implements Serializable {
 
     public void printInfo() {
         for(User u : users) {
-            u.printUserInfo();
+            System.out.println(u.toString());
         }
     }
 

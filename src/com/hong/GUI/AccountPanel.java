@@ -7,7 +7,8 @@ import java.awt.*;
 
 public class AccountPanel extends JPanel {
 
-    private final User account;
+    private User account;
+    private JLabel usernameLabel;
 
     public AccountPanel(User account) {
         super(new BorderLayout());
@@ -18,20 +19,38 @@ public class AccountPanel extends JPanel {
     }
 
     private void createComponents() {
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(Color.gray);
-        topPanel.setPreferredSize(new Dimension(100,50));
-        JLabel usernameLabel = new JLabel(account.getUsername() + "  ", SwingConstants.RIGHT);
-        usernameLabel.setVerticalTextPosition(JLabel.BOTTOM);
-        topPanel.add(usernameLabel);
+        this.add(new TopPanel(), BorderLayout.PAGE_START);
+        this.add(new CenterPanel(), BorderLayout.CENTER);
+    }
 
-        JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.setPreferredSize(new Dimension(100,100));
-        JLabel stuff = new JLabel("stuff will be here", SwingConstants.CENTER);
-        centerPanel.add(stuff);
+    public void setAccount(User account) {
+        this.account = account;
+        usernameLabel.setText(account.getUsername() + "  ");
+    }
 
-        this.add(topPanel, BorderLayout.PAGE_START);
-        this.add(centerPanel, BorderLayout.CENTER);
+    private class TopPanel extends JPanel {
+        public TopPanel() {
+            this.setLayout(new BorderLayout());
+            this.setBackground(Color.lightGray);
+            this.setPreferredSize(new Dimension(100,30));
+
+            usernameLabel = new JLabel(" ", SwingConstants.RIGHT);
+            usernameLabel.setFont(new Font(null, Font.PLAIN, 10));
+            usernameLabel.setForeground(Color.white);
+
+            this.add(usernameLabel);
+        }
+    }
+
+    private class CenterPanel extends JPanel {
+        public CenterPanel() {
+            this.setLayout(new BorderLayout());
+            this.setPreferredSize(new Dimension(100,100));
+
+            JLabel stuff = new JLabel("hehe", SwingConstants.CENTER);
+
+            this.add(stuff);
+        }
     }
 
 }

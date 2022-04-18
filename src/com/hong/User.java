@@ -13,8 +13,21 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public void printUserInfo() {
-        System.out.println("username: " + getUsername() + ", password: " + getPassword());
+    @Override
+    public String toString() {
+        return("User[username: " + getUsername() + ", password: " + getPassword() + "]");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) {
+            return false;
+        }
+        if(!(obj instanceof User)) {
+            return false;
+        }
+        User u = (User) obj;
+        return username.equals(u.getUsername()) && password.equals(u.getPassword());
     }
 
     public String getUsername() {
