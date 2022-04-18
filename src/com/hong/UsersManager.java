@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class UsersManager implements Serializable {
 
-    private static long serialVersionUID = 8600091809369890560L;
+    private static final long serialVersionUID = 8600091809369890560L;
     private ArrayList<User> users = new ArrayList<>();
 
     public void addUser(User user) {
@@ -49,6 +49,11 @@ public class UsersManager implements Serializable {
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void clearData() {
+        users.clear();
+        saveData();
     }
 
     public void printInfo() {
