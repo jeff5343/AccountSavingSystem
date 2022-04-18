@@ -1,8 +1,10 @@
 package com.hong;
 
+import com.hong.GUI.MainFrame;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        new MainFrame();
     }
 }
