@@ -60,6 +60,10 @@ public class UsersDatabase implements Serializable {
         return null;
     }
 
+    public void removeUserFromDatabase(User user) {
+        users.remove(user);
+    }
+
     public void clearData() {
         users.clear();
         saveData();

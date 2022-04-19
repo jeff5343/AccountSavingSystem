@@ -2,8 +2,10 @@ package com.hong;
 
 import com.hong.GUI.MainFrame;
 
+import java.awt.*;
+
 public class Main {
     public static void main(String[] args) {
-        new MainFrame();
+        EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }

@@ -11,27 +11,23 @@ import java.awt.event.ActionListener;
 public class LoginPanel extends JPanel {
 
     private final UsersDatabase usersDatabase;
-    private final JPanel cards;
-    private final CardLayout cardLayout;
 
     private JTextField usernameField;
     private JTextField passwordField;
     private JLabel errorMessage;
 
-    public LoginPanel(UsersDatabase usersDatabase, JPanel cards) {
+    public LoginPanel(UsersDatabase usersDatabase) {
+        super(new BorderLayout(0,10));
         this.usersDatabase = usersDatabase;
-        this.cards = cards;
-        cardLayout = (CardLayout)cards.getLayout();
 
         createComponents();
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         this.setPreferredSize(new Dimension(250,250));
     }
 
     private void createComponents() {
-        this.add(new TitlePanel());
-        this.add(new CenterPanel());
-        this.add(new BottomPanel());
+        this.add(new TitlePanel(),BorderLayout.PAGE_START);
+        this.add(new CenterPanel(),BorderLayout.CENTER);
+        this.add(new BottomPanel(),BorderLayout.PAGE_END);
     }
 
     private void clearTextFields() {
@@ -51,9 +47,8 @@ public class LoginPanel extends JPanel {
                 errorMessage.setText("wrong password!");
                 return;
             }
-            AccountPanel accountPanel = (AccountPanel)cards.getComponent(1);
-            accountPanel.setAccount(usersDatabase.getUserFromDatabase(u));
-            cardLayout.show(cards, MainFrame.ACCOUNTPANEL);
+            CardPanel.cards.setAccountPanelInfo(u);
+            CardPanel.cards.switchPanel(PanelOption.ACCOUNT);
             clearTextFields();
         }
     }
@@ -74,7 +69,6 @@ public class LoginPanel extends JPanel {
             usersDatabase.printInfo();
             usersDatabase.saveData();
 
-            System.out.println("successfully signed up");
             errorMessage.setText("");
             clearTextFields();
         }
@@ -128,30 +122,16 @@ public class LoginPanel extends JPanel {
     private class BottomPanel extends JPanel {
         public BottomPanel() {
             this.setBackground(Color.lightGray);
-            this.setLayout(new FlowLayout(FlowLayout.CENTER, 7, 7));
-            this.setPreferredSize(new Dimension(235,40));
+            this.setLayout(new FlowLayout(FlowLayout.CENTER, 14, 14));
+            this.setPreferredSize(new Dimension(235,50));
 
-            JButton loginButton = new CustomButton("login");
-            JButton signUpButton = new CustomButton("sign up");
+            JButton loginButton = new DarkButton("login");
+            JButton signUpButton = new DarkButton("sign up");
             loginButton.addActionListener(new LogInButtonAction());
             signUpButton.addActionListener(new SignUpButtonAction());
 
             this.add(loginButton);
             this.add(signUpButton);
-        }
-
-        private class CustomButton extends JButton {
-            public CustomButton(String text) {
-                super(text);
-
-                this.setFont(new Font(null, Font.PLAIN, 10));
-                this.setForeground(Color.lightGray);
-                this.setBackground(Color.darkGray);
-                this.setOpaque(true);
-                this.setBorderPainted(false);
-                this.setPreferredSize(new Dimension(80,25));
-                this.setFocusable(false);
-            }
         }
     }
 

@@ -7,10 +7,12 @@ public class User implements Serializable {
     private static final long serialVersionUID = 8603625382639890560L;
     private final String username;
     private final String password;
+    private int money;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        money=0;
     }
 
     @Override
@@ -36,5 +38,13 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }
