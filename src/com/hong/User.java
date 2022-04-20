@@ -17,7 +17,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return("User[username: " + getUsername() + ", password: " + getPassword() + "]");
+        return("User[username: " + getUsername() + ", password: " + getPassword() + ", money: " + getMoney() + "]");
     }
 
     @Override

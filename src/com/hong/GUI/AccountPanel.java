@@ -75,12 +75,17 @@ public class AccountPanel extends JPanel {
             JButton saveButton = new DarkButton("save");
             saveButton.setPreferredSize(new Dimension(140, 25));
             saveButton.addActionListener(e -> usersDatabase.saveData());
+            JButton printDataButton = new DarkButton("print data");
+            printDataButton.setPreferredSize(new Dimension(140, 25));
+            printDataButton.addActionListener(e -> usersDatabase.printInfo());
+
 
             JLabel space = new JLabel(" ");
             space.setPreferredSize(new Dimension(140,20));
 
             this.add(space);
             this.add(moneyButton);
+            this.add(printDataButton);
             this.add(saveButton);
         }
     }
