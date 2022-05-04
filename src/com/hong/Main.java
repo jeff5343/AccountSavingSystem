@@ -1,11 +1,11 @@
 package com.hong;
 
-import com.hong.GUI.MainFrame;
+import com.hong.gui.MainFrame;
 
-import java.awt.*;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }

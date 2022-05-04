@@ -1,4 +1,4 @@
-package com.hong.GUI;
+package com.hong.gui.panels;
 
 import com.hong.User;
 import com.hong.UsersDatabase;
@@ -8,18 +8,20 @@ import java.awt.*;
 
 public class CardPanel extends JPanel {
 
-    public static CardPanel cards = null;
+    private static final CardPanel instance = new CardPanel();
+    public static CardPanel getInstance() {
+        return instance;
+    }
     private final UsersDatabase usersDatabase;
     private final CardLayout cardLayout;
 
-    public CardPanel(UsersDatabase usersDatabase) {
-        cards = this;
-        this.usersDatabase = usersDatabase;
+    private CardPanel() {
+        this.usersDatabase = UsersDatabase.getInstance();
 
         cardLayout = new CardLayout();
         this.setLayout(cardLayout);
-        this.add(new LoginPanel(usersDatabase), PanelOption.LOGIN.value);
-        this.add(new AccountPanel(usersDatabase, null), PanelOption.ACCOUNT.value);
+        this.add(new LoginPanel(), PanelOption.LOGIN.value);
+        this.add(new AccountPanel(null), PanelOption.ACCOUNT.value);
     }
 
     public void switchPanel(PanelOption panelOption) {

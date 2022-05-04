@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 public class UsersDatabase implements Serializable {
 
+    private static final UsersDatabase instance = new UsersDatabase();
+    public static UsersDatabase getInstance() {
+        return instance;
+    }
+    private UsersDatabase() {}
+
     private static final long serialVersionUID = 8600091809369890560L;
     private ArrayList<User> users = new ArrayList<>();
 
@@ -19,9 +25,7 @@ public class UsersDatabase implements Serializable {
     public boolean isPasswordCorrect(User inputUser) {
         User user = getUserWithUsername(inputUser.getUsername());
         if(user!=null) {
-            if(user.getPassword().equals(inputUser.getPassword())) {
-                return true;
-            }
+            return user.getPassword().equals(inputUser.getPassword());
         }
         return false;
     }

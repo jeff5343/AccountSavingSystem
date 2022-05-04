@@ -1,7 +1,8 @@
-package com.hong.GUI;
+package com.hong.gui.panels;
 
 import com.hong.User;
 import com.hong.UsersDatabase;
+import com.hong.gui.DarkButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,9 @@ public class LoginPanel extends JPanel {
     private JTextField passwordField;
     private JLabel errorMessage;
 
-    public LoginPanel(UsersDatabase usersDatabase) {
+    public LoginPanel() {
         super(new BorderLayout(0,10));
-        this.usersDatabase = usersDatabase;
+        this.usersDatabase = UsersDatabase.getInstance();
 
         createComponents();
         this.setPreferredSize(new Dimension(250,250));
@@ -47,8 +48,8 @@ public class LoginPanel extends JPanel {
                 errorMessage.setText("wrong password!");
                 return;
             }
-            CardPanel.cards.setAccountPanelInfo(u);
-            CardPanel.cards.switchPanel(PanelOption.ACCOUNT);
+            CardPanel.getInstance().setAccountPanelInfo(u);
+            CardPanel.getInstance().switchPanel(PanelOption.ACCOUNT);
             clearTextFields();
         }
     }

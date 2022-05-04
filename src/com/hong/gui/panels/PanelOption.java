@@ -1,4 +1,4 @@
-package com.hong.GUI;
+package com.hong.gui.panels;
 
 public enum PanelOption {
     LOGIN("Login Panel"),

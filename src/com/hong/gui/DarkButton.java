@@ -1,4 +1,4 @@
-package com.hong.GUI;
+package com.hong.gui;
 
 import javax.swing.*;
 import java.awt.*;

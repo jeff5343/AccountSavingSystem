@@ -1,7 +1,8 @@
-package com.hong.GUI;
+package com.hong.gui.panels;
 
 import com.hong.User;
 import com.hong.UsersDatabase;
+import com.hong.gui.DarkButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +14,9 @@ public class AccountPanel extends JPanel {
     private JLabel usernameLabel;
     private JLabel moneyLabel;
 
-    public AccountPanel(UsersDatabase usersDatabase, User account) {
+    public AccountPanel(User account) {
         super(new BorderLayout());
-        this.usersDatabase = usersDatabase;
+        this.usersDatabase = UsersDatabase.getInstance();
         this.account = account;
 
         createComponents();
@@ -64,29 +65,31 @@ public class AccountPanel extends JPanel {
 
     private class CenterPanel extends JPanel {
         public CenterPanel() {
-            this.setLayout(new FlowLayout());
+            this.setLayout(new FlowLayout(FlowLayout.CENTER,30,10));
+
+            int buttonWidth = 100;
 
             JButton moneyButton = new DarkButton("+1 money");
-            moneyButton.setPreferredSize(new Dimension(140, 25));
+            moneyButton.setPreferredSize(new Dimension(buttonWidth, 25));
             moneyButton.addActionListener(e -> {
                 account.setMoney(account.getMoney()+1);
+                usersDatabase.saveData();
                 updateLabels();
             });
-            JButton saveButton = new DarkButton("save");
-            saveButton.setPreferredSize(new Dimension(140, 25));
-            saveButton.addActionListener(e -> usersDatabase.saveData());
             JButton printDataButton = new DarkButton("print data");
-            printDataButton.setPreferredSize(new Dimension(140, 25));
+            printDataButton.setPreferredSize(new Dimension(buttonWidth, 25));
             printDataButton.addActionListener(e -> usersDatabase.printInfo());
-
+            JButton logoutButton = new DarkButton("logout");
+            logoutButton.setPreferredSize(new Dimension(buttonWidth, 25));
+            logoutButton.addActionListener(e -> CardPanel.getInstance().switchPanel(PanelOption.LOGIN));
 
             JLabel space = new JLabel(" ");
-            space.setPreferredSize(new Dimension(140,20));
+            space.setPreferredSize(new Dimension(140,10));
 
             this.add(space);
             this.add(moneyButton);
             this.add(printDataButton);
-            this.add(saveButton);
+            this.add(logoutButton);
         }
     }
 
@@ -105,7 +108,7 @@ public class AccountPanel extends JPanel {
                 if(input==0) {
                     usersDatabase.removeUserFromDatabase(account);
                     usersDatabase.saveData();
-                    CardPanel.cards.switchPanel(PanelOption.LOGIN);
+                    CardPanel.getInstance().switchPanel(PanelOption.LOGIN);
                 }
             });
 

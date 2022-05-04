@@ -1,6 +1,8 @@
-package com.hong.GUI;
+package com.hong.gui;
 
 import com.hong.UsersDatabase;
+import com.hong.gui.panels.CardPanel;
+
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
@@ -8,7 +10,7 @@ public class MainFrame extends JFrame {
     private final UsersDatabase usersDatabase;
 
     public MainFrame() {
-        usersDatabase = new UsersDatabase();
+        usersDatabase = UsersDatabase.getInstance();
         usersDatabase.loadData();
 
         createComponents();
@@ -21,7 +23,7 @@ public class MainFrame extends JFrame {
     }
 
     private void createComponents() {
-        this.add(new CardPanel(usersDatabase));
+        this.add(CardPanel.getInstance());
     }
 
 }
